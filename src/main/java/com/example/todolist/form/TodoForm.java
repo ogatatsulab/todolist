@@ -29,7 +29,7 @@ public class TodoForm {
   private String deadline;
   private String done;
   
-  public Todo toEntity() {
+  public Todo toTodo() {
     Todo todo = new Todo();
     todo.setId( id );
     todo.setTitle( title );
@@ -48,5 +48,23 @@ public class TodoForm {
     return todo;
     
   }
+  
+  public static TodoForm fromTodo( Todo todo ) {
+    TodoForm form = new TodoForm();
+    form.setId( todo.getId() );
+    form.setTitle( todo.getTitle() );
+    form.setImportance( todo.getImportance() );
+    form.setUrgency( todo.getUrgency() );
+    form.setDone( todo.getDone() );
+
+    // java.sql.Date → String ("yyyy-MM-dd" 形式)
+    if ( todo.getDeadline() != null ) {
+        form.setDeadline( todo.getDeadline().toString() );  // yyyy-MM-dd形式になる
+    } else {
+        form.setDeadline( "" );
+    }
+
+    return form;
+ }
   
 }
