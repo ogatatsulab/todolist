@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+    table { border-collapse: collapse; width: 80%; margin: 1em auto; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    .center { text-align: center; margin-top: 1em; }
+  </style>
+  <title>ToDoリスト表示</title>
+</head>
+<body>
+  <h1 style="text-align:center;">ToDoリスト</h1>
+
+  <!-- ラジオボタンとボタン -->
+  <div class="center">
+		<label><input type="radio" name="fetchUrl" value="http://localhost:8080/jpaGet">JPA</label>
+		<label><input type="radio" name="fetchUrl" value="http://localhost:8080/mybatisGet">MyBatis</label>
+    <label><input type="radio" name="fetchUrl" value="http://localhost:8080/springjdbcGet">SpringJDBC</label>
+    <label><input type="radio" name="fetchUrl" value="http://localhost:8080/jdbcGet">JDBC</label>
+    <label><input type="radio" name="fetchUrl" value="http://localhost:8080/daoGet">DAO</label>
+    <button onclick="loadData()">取得</button>
+		<button onclick="location.reload()">ページをリロード</button>
+  </div>
+
+  <!-- 表 -->
+  <table id="todoTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>タイトル</th>
+        <th>重要度</th>
+        <th>緊急度</th>
+        <th>期限</th>
+        <th>完了</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- JavaScriptで追加 -->
+    </tbody>
+  </table>
+
+  <!-- スクリプト -->
+  <script>
+    function loadData() {
+      // 選択されたラジオボタンの値を取得
+      const selectedUrl = document.querySelector( "input[name='fetchUrl']:checked" ).value;
+
+      fetch( selectedUrl )
+        .then( response => {
+          if ( !response.ok ) {
+            throw new Error( "データ取得失敗" );
+          }
+          return response.json();
+        })
+        .then( data => {
+          const tbody = document.querySelector( "#todoTable tbody" );
+          tbody.innerHTML = ""; // 既存の行をクリア
+
+          data.forEach( item => {
+            const row = document.createElement( "tr" );
+            row.innerHTML = `
+              <td>${item.id}</td>
+              <td>${item.title}</td>
+              <td>${item.importance}</td>
+              <td>${item.urgency}</td>
+              <td>${item.deadline}</td>
+              <td>${item.done === 'Y' ? '✔' : '✘' }</td>
+            `;
+            tbody.appendChild( row );
+          });
+        })
+        .catch(error => {
+          console.error( "エラー:", error );
+        });
+    }
+  </script>
+
+</body>
+</html>
