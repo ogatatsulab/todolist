@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<pre style="font-size:20px">
+			【サンプルアプリtodo】
+
+			http://localhost:8080/todo
+			  ToDoアプリ（登録・更新・削除）
+			  DBアクセスはSpringDataJPAを使用
+			  いわゆるサーブレットアプリ
+
+			★todoテーブルの内容を全件JSONで返すREST APIを持っている。（各種DBアクセス方式）
+			 わかりやすくするためにDBアクセス方式ごとにコントローラを別にしてる。
+			http://localhost:8080/daoGet（SpringBootのリポジトリを使用しないいわゆるDAO）
+			http://localhost:8080/jdbcGet（JDBCをそのまま使うリポジトリ）
+			http://localhost:8080/springjdbcGet（SpringJDBCリポジトリ）
+			http://localhost:8080/mybatisGet（MyBatisリポジトリ）
+			http://localhost:8080/jpaGet（SpringDataJPAリポジトリ）
+
+			 このJSONを使用するSPAのイメージとして下記ページ。
+			http://localhost:8080/showJSON.html
+			 DBアクセス方式をラジオボタンで選べる。（が、当然内容はおんなじ）
+			 これをもっと本格的に作るのがReact, Next.js, Vue.js, Angularなどのフレームワーク
+		</pre>
+	</body>
+</html>

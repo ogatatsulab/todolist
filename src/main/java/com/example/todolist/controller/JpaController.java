@@ -23,7 +23,7 @@ public class JpaController {
   
   
   @GetMapping( "/jpaGet" )
-  public List<Todo> showTodoList() {
+  public List<Todo> showTodoJson() {
     return todoRepository.findAll( Sort.by(Sort.Direction.ASC, "id") );
   }
 
